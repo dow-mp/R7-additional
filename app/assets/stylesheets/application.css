@@ -13,3 +13,14 @@
  *= require_tree .
  *= require_self
  */
+
+ .my_alert {
+    font-size: 1.25rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: red;
+    border: 1px dotted gray;
+    margin: 0 auto;
+    text-align: center;
+    width: fit-content;
+    padding: 2%;
+ }
