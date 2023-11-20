@@ -24,28 +24,60 @@ class CustomersController < ApplicationController
   def create
     @customer = Customer.new(customer_params)
 
-    respond_to do |format|
-      if @customer.save
-        format.html { redirect_to customer_url(@customer), notice: "Customer was successfully created." }
-        format.json { render :show, status: :created, location: @customer }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @customer.errors, status: :unprocessable_entity }
-      end
+    # ---------
+    # The code contained here does not handle errors - and will display the flash notice despite any errors that may have prevented a save (based on the validation we've implemented)
+    # @customer.save
+    # flash.notice = "The customer record was created successfully."
+
+    # redirect_to @customer
+    # ---------
+    
+    if @customer.save
+      flash.notice = "The customer record was created successfully."
+      redirect_to @customer
+    else
+      render :new, status: :unprocessable_entity # when the status is set to unprocessable_entity, Rails displays any errors that occurred via the html.erb view(s)
     end
+
+    # The code below was automatically generated with the Customer scaffold.
+    # respond_to do |format|
+    #   if @customer.save
+    #     format.html { redirect_to customer_url(@customer), notice: "Customer was successfully created." }
+    #     format.json { render :show, status: :created, location: @customer }
+    #   else
+    #     format.html { render :new, status: :unprocessable_entity }
+    #     format.json { render json: @customer.errors, status: :unprocessable_entity }
+    #   end
+    # end
   end
 
   # PATCH/PUT /customers/1 or /customers/1.json
   def update
-    respond_to do |format|
-      if @customer.update(customer_params)
-        format.html { redirect_to customer_url(@customer), notice: "Customer was successfully updated." }
-        format.json { render :show, status: :ok, location: @customer }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @customer.errors, status: :unprocessable_entity }
-      end
+    # ---------
+    # The code contained here does not handle errors - and will display the flash notice despite any errors that may have prevented an update to the customer (based on the validation we've implemented)
+    # @customer.update(customer_params)
+    # flash.notice = "The customer record was updated successfully."
+
+    # redirect_to @customer
+    # ---------
+
+    if @customer.update(customer_params)
+      flash.notice = "The customer record was updated succesfully."
+      redirect_to @customer
+    else
+      render :edit, status: :unprocessable_entity
     end
+
+    # The code below was automatically generated with the Customer scaffold.
+    # respond_to do |format|
+    #   if @customer.update(customer_params)
+    #     format.html { redirect_to customer_url(@customer), notice: "Customer was successfully updated." }
+    #     format.json { render :show, status: :ok, location: @customer }
+    #   else
+    #     format.html { render :edit, status: :unprocessable_entity }
+    #     format.json { render json: @customer.errors, status: :unprocessable_entity }
+    #   end
+    # end
   end
 
   # DELETE /customers/1 or /customers/1.json
