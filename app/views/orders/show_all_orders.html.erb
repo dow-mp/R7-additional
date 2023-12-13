@@ -1,0 +1,34 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Orders</h1>
+
+<div id="orders">
+  <% @orders.each do |order| %>
+    <% customer = @customers.find(order.customer_id) %>
+    <h2><%= customer.first_name %> <%= customer.last_name %></h2>
+    <%= render order %>
+    <p>
+        <%= link_to "Show this customer", customer_path(customer) %>
+    </p>
+    <p>
+        <%# link_to "Show this order", order_path(order) %>
+        <%= link_to "Show this order", customer_order_path(customer, order) %>
+    </p>
+    <p>
+        <%= link_to "Edit this order", edit_order_path(customer, order) %> 
+    </p>
+    <p>
+        <%= link_to "Destroy this order", [customer, order], data: { 'turbo-method': :delete } %>
+    </p>
+  <% end %>
+</div>
+
+
+
+<div>
+  <%# link_to "Edit this order", edit_order_path(@customer, @order) %> 
+  <%= link_to "New order", new_from_all_path %>
+  <%= link_to "Back to customers", customers_path %> 
+
+  <%# link_to "Destroy this order", [@customer, @order], data: { 'tubro-method': :delete } %>
+</div>
