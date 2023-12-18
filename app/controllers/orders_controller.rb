@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-    before_action :set_customer
+    # before_action :set_customer
 
     def index
         @orders = Order.all
@@ -10,6 +10,7 @@ class OrdersController < ApplicationController
     end
 
     def new
+        @customers = Customer.all
         @order = Order.new
     end
 
@@ -18,6 +19,10 @@ class OrdersController < ApplicationController
     end
 
     def create
+        # need to figure out how to get the customer id number from the form and pass it along with the order params
+        p order_params
+        p @customer
+        # @customer = Customer.find(order_params.customer_id)
         @order = @customer.orders.create(order_params)
         redirect_to @customer
     end
@@ -39,16 +44,17 @@ class OrdersController < ApplicationController
 
     def destroy
         @order = Order.find(params[:id])
+        @customer = Customer.find(@order.customer_id)
         @order.destroy
         redirect_to @customer
     end
 
     private
         def order_params
-            params.require(:order).permit(:product_name, :product_count)
+            params.require(:order).permit(:product_name, :product_count, :customer_id)
         end
 
-        def set_customer
-            @customer = Customer.find(params[:customer_id])
-        end
+        # def set_customer
+        #     @customer = Customer.find(params[:customer_id])
+        # end
 end

@@ -1,4 +1,10 @@
-<h1>New customer</h1>
+<h1>New order</h1>
+
+    <select name="customers" id="customers">  
+      <% @customers.each do |customer| %>
+        <option value="<%= customer.full_name %>"> <%= customer.full_name %> </option>
+      <% end %>
+    </select>
 
 <%= render "form", order: @order %>
 
