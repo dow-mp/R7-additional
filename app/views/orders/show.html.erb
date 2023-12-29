@@ -3,8 +3,8 @@
 <%= render @order %>
 
 <div>
-  <%= link_to "Edit this order", edit_order_path(@customer, @order) %> |
-  <%= link_to "Back to customer", customer_path(@customer) %> |
+  <%= link_to "Edit this order", edit_order_path(@order) %> |
+  <%# link_to "Back to customer", customer_path(@customer) %> |
 
-  <%= link_to "Destroy this order", [@customer, @order], data: { 'tubro-method': :delete } %>
+  <%= link_to "Destroy this order", [@order], data: { 'tubro-method': :delete } %>
 </div>

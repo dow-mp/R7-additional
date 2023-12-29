@@ -1,4 +1,19 @@
-<%= form_for [@customer, order] do |f| %>
+<%= form_for [order] do |f| %>
+    <div class="field">
+        <% if customer %>
+        <% customer_obj = Customer.find(order.customer_id) %>
+        <% customer_name = "#{customer_obj.first_name} #{customer_obj.last_name}" %>
+        <% p customer_name %>
+            <p>Add order for: <%= customer_name %></p>
+        <% end %>
+        <% if !customer %>
+            <% customers_full_name_array = Customer.all.map { |customer| [customer.full_name] } %>
+            <%= f.label "Add order for: " %>
+
+            <%= select_tag(:full_name, options_for_select(customers_full_name_array)) %>
+        <% end %>
+    </div>
+
     <div class="field">
         <%= f.label :product_name %>
         <%= f.text_field :product_name %>

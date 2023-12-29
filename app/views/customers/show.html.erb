@@ -21,9 +21,9 @@
           <tr>
             <td><%= order.product_name %></td>
             <td><%= order.product_count %></td>
-            <td><%= link_to "Show", customer_order_path(@customer, order) %></td>
+            <td><%= link_to "Show", order_path(@customer, order) %></td>
             <td><%= link_to "Edit", edit_order_path(@customer, order) %></td>
-            <td><%= link_to "Delete", [@customer, order], data: { 'turbo-method': :delete } %></td>
+            <td><%= link_to "Delete", [order], data: { 'turbo-method': :delete } %></td>
           </tr>
       <!-- alternatively can use a partial _order.html.erb within the '/views/orders' directory-->
       <%# render partial: "orders/order", locals: {order: order} %>
@@ -33,7 +33,7 @@
 
 
     <h2>Add Order<h2>
-    <%= render partial: 'orders/form', locals: {order: @customer.orders.new} %>
+    <%= render partial: 'orders/form', locals: {customer: @customer, order: @customer.orders.new} %>
 </div>
 
 
