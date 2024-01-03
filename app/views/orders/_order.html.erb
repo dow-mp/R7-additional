@@ -1,4 +1,6 @@
-<h3><%= @customer.full_name %></h3>
+<% if @customer.present? %>
+  <h3><%= @customer.full_name %></h3>
+<% end %>
 
 <table>
   <tr>
