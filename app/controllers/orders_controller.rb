@@ -6,8 +6,8 @@ class OrdersController < ApplicationController
     end
 
     def show
-        p @order
-        @order = Order.find(params[:format])
+        @order = Order.find(params[:id])
+        @customer = Customer.find_by(id: @order.customer_id)
     end
 
     def new
@@ -17,11 +17,10 @@ class OrdersController < ApplicationController
 
     def edit 
         @order = Order.find(params[:id])
+        @customer = Customer.find_by(id: @order.customer_id)
     end
 
     def create
-        # need to figure out how to get the customer id number from the form and pass it along with the order params
-        # p customer_name_param
         customer_name_array = customer_name_param.split(" ")
         customer_last = customer_name_array[1]
         @customer = Customer.find_by(last_name: customer_last)
@@ -31,20 +30,8 @@ class OrdersController < ApplicationController
 
     def update
         @order = Order.find(params[:id])
-        last_arr = params[:full_name].split(" ")
-        last = last_arr[1]
         @order.update(order_params)
-        @customer = Customer.find_by(last_name: last)
-        redirect_to @customer
-        # respond_to do |format|
-        #     if @order.update(order_params)
-        #         format.html { redirect_to customer_order_url(@order), notice = "Order was updated successfully." }
-        #         format.json { render :show, status: :ok, location: @order } 
-        #     else
-        #         format.html { render :edit, status: :unprocessable_entity }
-        #         format.json { render json: @order.errors, status: :unprocessable_entity }
-        #     end
-        # end
+        redirect_to @order
     end
 
     def destroy
@@ -56,14 +43,10 @@ class OrdersController < ApplicationController
 
     private
         def order_params
-            params.require(:order).permit(:product_name, :product_count)
+            params.require(:order).permit(:product_name, :product_count, :customer_id)
         end
 
         def customer_name_param
             params.require(:full_name)
         end
-
-        # def set_customer
-        #     @customer = Customer.find(params[:customer_id])
-        # end
 end
