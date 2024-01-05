@@ -1,12 +1,13 @@
 <%= form_for [order] do |f| %>
     <div class="field">
         <% if @customer.present? %>
-            <% i = 0 %>
+            <% p "**************" %>
+            <% p @customer.id %>
+            <% p "**************" %>
             <% customers_full_name_array = Customer.all.map { |customer| [customer.full_name, customer.id] } %>
             <%= f.label "Add order for: " %>
             <%= select_tag(:customer_id, options_for_select(customers_full_name_array, @customer.id)) %>
         <% else %>
-            <% i = 0 %>
             <% customers_full_name_array = Customer.all.map { |customer| [customer.full_name] } %>
             <%= f.label "Add order for: " %>
             <%= select_tag(:full_name, options_for_select(customers_full_name_array)) %>

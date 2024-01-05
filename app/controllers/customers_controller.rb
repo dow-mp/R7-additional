@@ -5,6 +5,7 @@ class CustomersController < ApplicationController
   # GET /customers or /customers.json
   def index
     @customers = Customer.all
+    @orders = Order.all
   end
 
   # GET /customers/1 or /customers/1.json
@@ -82,9 +83,14 @@ class CustomersController < ApplicationController
 
   # DELETE /customers/1 or /customers/1.json
   def destroy
-    @customer.destroy
+    begin
+      @customer.destroy
+      flash.notice = "The customer record was successfully deleted."
+    rescue ActiveRecord::InvalidForeignKey
+      flash.notice = "This customer has order records and cannot be deleted."
+    end
     respond_to do |format|
-      format.html { redirect_to customers_url, notice: "Customer was successfully destroyed." }
+      format.html { redirect_to customers_url }
       format.json { head :no_content }
     end
   end

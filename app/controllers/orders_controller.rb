@@ -1,8 +1,9 @@
 class OrdersController < ApplicationController
-    # before_action :set_customer
+    rescue_from ActiveRecord::RecordNotFound, with: :catch_not_found
 
     def index
         @orders = Order.all
+        @customers = Customer.all
     end
 
     def show
@@ -25,13 +26,25 @@ class OrdersController < ApplicationController
         customer_last = customer_name_array[1]
         @customer = Customer.find_by(last_name: customer_last)
         @order = @customer.orders.create(order_params)
-        redirect_to @customer
+
+        if @order.save
+            flash.notice = "The order was created successfully."
+            redirect_to @customer
+        else
+            render :new, status: :unprocessable_entity
+        end
     end
 
     def update
         @order = Order.find(params[:id])
-        @order.update(order_params)
-        redirect_to @order
+        if @order.update(order_params)
+            flash.notice = "The order was updated successfully."
+            redirect_to @order
+        else
+            render :edit, status: :unprocessable_entity
+        end
+
+        
     end
 
     def destroy

@@ -1,10 +1,10 @@
 <p style="color: green"><%= notice %></p>
-
+<h3>Customer</h3>
 <%= render @customer %>
 
 <div id="orders">
     <% if @customer.orders.present? %>
-        <h1>Orders</h1>
+        <h3>Orders</h3>
     <% end %>
       <table id="order">
         <thead>
@@ -21,7 +21,6 @@
           <tr>
             <td><%= order.product_name %></td>
             <td><%= order.product_count %></td>
-            <td><% p order %></td>
             <td><%= link_to "Show", order_path(order.id) %></td>
             <td><%= link_to "Edit", edit_order_path(order.id) %></td>
             <td><%= link_to "Delete", [order], data: { 'turbo-method': :delete } %></td>
@@ -40,9 +39,8 @@
 
 
 <div>
-  <%= link_to "Add an order", new_order_path(@customer) %>
+  <%= link_to "Add an order", new_order_path() %> |
   <%= link_to "Edit this customer", edit_customer_path(@customer) %> |
-  <%= link_to "Back to customers", customers_path %>
-
-  <%= button_to "Destroy this customer", @customer, method: :delete %>
+  <%= link_to "Destroy this customer", [@customer], data: { 'turbo-method': :delete } %> |
+  <%= link_to "Back to customers", customers_path %> 
 </div>
