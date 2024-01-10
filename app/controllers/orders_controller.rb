@@ -43,8 +43,6 @@ class OrdersController < ApplicationController
         else
             render :edit, status: :unprocessable_entity
         end
-
-        
     end
 
     def destroy
@@ -61,5 +59,11 @@ class OrdersController < ApplicationController
 
         def customer_name_param
             params.require(:full_name)
+        end
+
+        def catch_not_found(e)
+            Rails.logger.debug("We had a not found exception.")
+            flash.alert = e.to_s
+            redirect_to orders_path
         end
 end

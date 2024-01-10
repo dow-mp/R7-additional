@@ -264,6 +264,7 @@ DEPENDENCIES
   rails (~> 7.0.4, >= 7.0.4.3)
   rails-controller-testing
   rexml
+  rspec-mocks
   rspec-rails
   selenium-webdriver
   sprockets-rails
