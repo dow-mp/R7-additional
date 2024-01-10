@@ -1,0 +1,36 @@
+<div id="<%= dom_id customer %>">
+  
+  <!-- 
+  <p>
+    <strong>First name:</strong>
+    <%# customer.first_name %>
+  </p>
+
+  <p>
+    <strong>Last name:</strong>
+    <%# customer.last_name %>
+  </p>
+  -->
+
+  <table>
+    <thead>
+      <tr>
+        <td> Customer </td>
+        <td> Num Orders </td>
+        <td> View Record </td>
+        <td> Edit Record </td>
+        <td> Delete Record </td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td> <%= customer.full_name %> </td>
+        <td> <%= customer.orders.count %> </td>
+        <td> <%= link_to "Show", customer %> </td>
+        <td> <%= link_to "Edit", edit_customer_path(customer) %> </td>
+        <td> <%= link_to "Delete", [customer], data: { 'turbo-method': :delete } %> </td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>

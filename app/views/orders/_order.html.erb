@@ -1,0 +1,17 @@
+<% if @customer.present? %>
+  <h3><%= @customer.full_name %></h3>
+<% end %>
+
+<table>
+  <tr>
+    <td>Product Name</td>
+    <td>Count</td>
+  </tr>
+  <tr>
+    <td><%= order.product_name %></td>
+    <td><%= order.product_count %></td>
+    <td><%# link_to "Show", customer_order_path(@customer, order) %></td>
+    <td><%# link_to "Edit", edit_order_path(@customer, order) %></td>
+    <td><%# link_to "Delete", [@customer, order], data: { 'turbo-method': :delete } %></td>
+  </tr>
+<table>

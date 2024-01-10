@@ -1,0 +1,46 @@
+<p style="color: green"><%= notice %></p>
+<h3>Customer</h3>
+<%= render @customer %>
+
+<div id="orders">
+    <% if @customer.orders.present? %>
+        <h3>Orders</h3>
+    <% end %>
+      <table id="order">
+        <thead>
+          <tr>
+            <td>Product Name</td>
+            <td>Product Count</td>
+            <td>View Order</td>
+            <td>Update Order</td>
+            <td>Delete Order</td>
+          </tr>
+        </thead>
+        <tbody>
+          <% @customer.orders.each do |order| %>
+          <tr>
+            <td><%= order.product_name %></td>
+            <td><%= order.product_count %></td>
+            <td><%= link_to "Show", order_path(order.id) %></td>
+            <td><%= link_to "Edit", edit_order_path(order.id) %></td>
+            <td><%= link_to "Delete", [order], data: { 'turbo-method': :delete } %></td>
+          </tr>
+      <!-- alternatively can use a partial _order.html.erb within the '/views/orders' directory-->
+      <%# render partial: "orders/order", locals: {order: order} %>
+          <% end %>
+        <tbody>
+      </table>
+
+
+    <!-- <h2>Add Order<h2> -->
+    <%# render partial: 'orders/form', locals: {customer: @customer, order: @customer.orders.new} %>
+</div>
+
+
+
+<div>
+  <%= link_to "Add an order", new_order_path() %> |
+  <%= link_to "Edit this customer", edit_customer_path(@customer) %> |
+  <%= link_to "Destroy this customer", [@customer], data: { 'turbo-method': :delete } %> |
+  <%= link_to "Back to customers", customers_path %> 
+</div>
