@@ -7,13 +7,20 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
   </head>
 
-  <body>
+  <body class="bg-info bg-gradient">
+    <header>
+      <img src="../../../assets/images/officeSupplies.jpeg">
+      <h1>Office Supplies R Us</h1>
+      <p>We keep your office stocked.</p>
+    </header>
   <% if flash[:alert].present? %>
     <p class="my_alert"><%= flash[:alert]%></p>
   <% end %>
     <%= yield %>
+
+
   </body>
 </html>
